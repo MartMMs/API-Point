@@ -1,0 +1,99 @@
+@baseUrl = http://localhost:8000
+@token = 
+@workerId = 1
+
+### Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "user_id": 1
+}
+
+### Create Worker
+POST {{baseUrl}}/workers/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "user_id": 1,
+  "name": "Maria Silva",
+  "cpf": "39053344705",
+  "birth_date": "1990-01-01",
+  "address": "Rua Exemplo, 123",
+  "cep": "12345678",
+  "sector": "Desenvolvimento",
+  "daily_hours": 8,
+  "auto_lunch": true,
+  "lunch_duration_minutes": 60
+}
+
+### List Workers
+GET {{baseUrl}}/workers/?status=active&limit=10&skip=0
+Authorization: Bearer {{token}}
+
+### Get Worker By ID
+GET {{baseUrl}}/workers/{{workerId}}
+Authorization: Bearer {{token}}
+
+### Update Worker
+PUT {{baseUrl}}/workers/{{workerId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Maria Souza",
+  "daily_hours": 9
+}
+
+### Deactivate Worker
+DELETE {{baseUrl}}/workers/{{workerId}}
+Authorization: Bearer {{token}}
+
+### Delete Worker Permanently
+DELETE {{baseUrl}}/workers/{{workerId}}?force=true
+Authorization: Bearer {{token}}
+
+### Worker Points
+GET {{baseUrl}}/workers/{{workerId}}/point?limit=10&skip=0
+Authorization: Bearer {{token}}
+
+### Worker Report
+GET {{baseUrl}}/workers/{{workerId}}/report?start_date=2026-07-24&end_date=2026-07-24
+Authorization: Bearer {{token}}
+
+### Register Check-in
+POST {{baseUrl}}/points/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "type": "check_in"
+}
+
+### Register Lunch Out
+POST {{baseUrl}}/points/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "type": "lunch_out"
+}
+
+### Register Lunch In
+POST {{baseUrl}}/points/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "type": "lunch_in"
+}
+
+### Register Check-out
+POST {{baseUrl}}/points/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "type": "check_out"
+}
