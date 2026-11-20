@@ -45,7 +45,7 @@ class PointService:
         query_points = sa.select(points).where(
             sa.and_(
                 points.c.worker_id == worker["id"],
-                sa.func.date(points.c.created_at) == hoje.isoformat()
+                sa.func.date(points.c.created_at) == hoje
             )
         ).order_by(points.c.created_at.asc(), points.c.id.asc())
 
@@ -159,8 +159,8 @@ class PointService:
         query_points = sa.select(points).where(
             sa.and_(
                 points.c.worker_id == worker_id,
-                sa.func.date(points.c.created_at) >= start_date.isoformat(),
-                sa.func.date(points.c.created_at) <= end_date.isoformat()
+                sa.func.date(points.c.created_at) >= start_date,
+                sa.func.date(points.c.created_at) <= end_date
             )
         ).order_by(points.c.created_at.asc(), points.c.id.asc())
         all_points = await database.fetch_all(query_points)
